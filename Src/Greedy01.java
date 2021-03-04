@@ -35,23 +35,30 @@ class Solution {
         int answer = n - lost.length; //총인원수 - 잃어버린 인원수를 기본으로 시작
 
         for (int i = 0; i < lost.length; i++) {
-            if(lost[i] == -1) {//이미 lost가 체육복을 받아서 -1이 됐다면
-                System.out.println("lost test code");
-                continue; //다시 위로 올라가서 i++을 받는다.
-            }
             for(int j = 0; j < reserve.length; j++) {
-                if (reserve[j] == -1) {
-                    System.out.println("reserve test code");
-                    continue; //마찬가지로 이미 빌려준애는 그냥 continue 됨
-                }
-                if(reserve[j] >= lost[i] - 1 && reserve[j] <= lost[i] + 1) { //빌려줄수 있으면
+                if(lost[i] == reserve[j]) {
                     lost[i] = -1;
-                    reserve[j] = -1;
-                    answer++;       //잃어버린친구랑 빌려준친구 둘다 배열에서 -1이됨
+                    reserve[j] = -100;
+                    answer++;
                 }
             }
         }
 
+        for (int i = 0; i < lost.length; i++) {
+            if(lost[i] == -1) {//이미 lost가 체육복을 받아서 -1이 됐다면
+                continue; //다시 위로 올라가서 i++을 받는다.
+            }
+            for(int j = 0; j < reserve.length; j++) {
+                if (reserve[j] == -100) {
+                    continue; //마찬가지로 이미 빌려준애는 그냥 continue 됨
+                }
+                if (reserve[j] == lost[i] - 1 || reserve[j] == lost[i] + 1) { //빌려줄수 있으면
+                    lost[i] = -1;
+                    reserve[j] = -100;
+                    answer++;       //잃어버린친구랑 빌려준친구 둘다 배열에서 -1이됨
+                }
+            }
+        }
         return answer;
     }
 }
