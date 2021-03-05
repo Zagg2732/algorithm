@@ -30,7 +30,7 @@ https://programmers.co.kr/learn/courses/30/lessons/42862
 3번 학생이 2번 학생이나 4번 학생에게 체육복을 빌려주면 학생 4명이 체육수업을 들을 수 있습니다.
  */
 
-class Solution {
+class Solution01 {
     public int solution(int n, int[] lost, int[] reserve) {
         int answer = n - lost.length; //총인원수 - 잃어버린 인원수를 기본으로 시작
 
@@ -65,7 +65,7 @@ class Solution {
 
 public class Greedy01 {
     public static void main(String[] args) {
-        Solution solution001 = new Solution();
+        Solution01 solution001 = new Solution01();
         int[] ex01 = {2, 4};
         int[] ex011 = {1, 3, 5};
         System.out.println(solution001.solution(5, ex01, ex011));
