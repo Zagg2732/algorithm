@@ -33,24 +33,59 @@ name	    return
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 class Solution02 {
+    public boolean checkIfLeftAllA(int[] list, int index) { //남아있는놈들이 모두 A인지 확인하는함수
+        for (int i = index; i < list.length; i++) {
+            if(list[i] == 65) {
+                continue;
+            } else {
+                return false; //만약 남은것중에 A가아니다. 그럼 false
+            }
+        }
+        return true; //A밖에안남았다 그럼 true
+    }
+
     public int solution(String name) {
-        String[] toAscii;
-        toAscii = name.split("");
+        int answer = 0; //정답
         int baseNum = 65; //A
+
+        String[] toAscii; //ASCII코드로 변환할 알파벳들이 들어갈 리스트
+        toAscii = name.split(""); // ""기준으로 split하면 한 글자씩 들어간다
+
+        int[] ascii = new int[name.length()];
+        //모든 단어들이 for문으로 들어가서 ASCII코드에 맞는 숫자로 변환된다
         for (int i = 0 ; i < toAscii.length ; i++) {
-            System.out.println(toAscii[i]);
-            char alphabet = toAscii[i].charAt(0);
-            int ascii = (int)alphabet;
+            ascii[i] = toAscii[i].charAt(0); //변환코드
         }
 
-        int answer = 0;
+        for (int i = 0 ; i < ascii.length; i++) {
+            if(checkIfLeftAllA(ascii, i)) { //남은게 모두 A라면?
+                System.out.println("test. 남는게 모두 A입니다.");
+                return answer;
+            }
+            if(ascii[i] - baseNum == 0) { //현재있는곳이 A라면
+                answer++; //다음으로 넘어감
+                continue;
+            } else if (ascii[i] > 78) { //알파벳 절반을 넘어가면 뒤로가야함
+                answer += 91 - ascii[i];
+                answer++;
+            } else {
+                answer += ascii[i] - baseNum;
+                answer++;
+            }
+        }
+        answer--;
         return answer;
     }
 }
 public class Greedy02 {
     public static void main(String[] args) {
         Solution02 solution02 = new Solution02();
-        solution02.solution("JEROEN");
+        System.out.println(solution02.solution("JEROEN"));
+        System.out.println(solution02.solution("JAN"));
+
+        System.out.println(solution02.solution("JAZ"));
     }
 }
